@@ -1,7 +1,14 @@
+using Microsoft.Extensions.FileProviders;
+
 var builder = WebApplication.CreateBuilder(args);
+
+IFileProvider fileProvider= new PhysicalFileProvider(Directory.GetCurrentDirectory());
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IFileProvider>(fileProvider);
+
 
 var app = builder.Build();
 

@@ -1,0 +1,19 @@
+﻿@{
+	ViewData["Title"] = "ImageShow";
+}
+
+@model IEnumerable<string>
+
+<h1>Resimler</h1>
+
+@foreach (var item in Model)
+{
+	<img src="~/images/@item" style="width:100px;height:100px;border:1px solid red;">
+
+	<h3>@item</h3>
+}
+
+<form method="post" asp-action="ImageShow" class="mt-3">
+	<input type="text" name="name" />
+	<input type="submit" value="Resmi sil" />
+</form>
