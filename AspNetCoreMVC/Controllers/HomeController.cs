@@ -1,4 +1,5 @@
 ﻿using AspNetCoreMVC.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -22,6 +23,30 @@ public class HomeController : Controller
 	{
 		return View();
 	}
+
+	public IActionResult ImageSave()
+	{
+		return View();
+	}
+
+	[HttpPost]
+	public async Task<IActionResult> ImageSave(IFormFile imageFile)
+	{
+		if (imageFile != null && imageFile.Length > 0)
+		{
+			var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+
+			var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+			using (var stream = new FileStream(path, FileMode.Create))
+			{
+				await imageFile.CopyToAsync(stream);
+			}
+		}
+
+		return View();
+	}
+
 
 	[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 	public IActionResult Error()
