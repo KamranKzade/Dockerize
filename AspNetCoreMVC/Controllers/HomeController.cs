@@ -8,19 +8,22 @@ namespace AspNetCoreMVC.Controllers;
 
 public class HomeController : Controller
 {
-	private readonly ILogger<HomeController> _logger;
 	private readonly IFileProvider _fileProvider;
+	private readonly IConfiguration _configuration;
+	private readonly ILogger<HomeController> _logger;
 
 
-	public HomeController(ILogger<HomeController> logger, IFileProvider fileProvider)
+    public HomeController(ILogger<HomeController> logger, IFileProvider fileProvider, IConfiguration configuration)
+    {
+        _logger = logger;
+        _fileProvider = fileProvider;
+        _configuration = configuration;
+    }
+
+    public IActionResult Index()
 	{
-		_logger = logger;
-		_fileProvider = fileProvider;
-	}
-
-	public IActionResult Index()
-	{
-		return View();
+		ViewBag.SqlCon = _configuration["SqlCon"];
+        return View();
 	}
 
 	public IActionResult Privacy()

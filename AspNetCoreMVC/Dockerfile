@@ -14,4 +14,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build /app/out .
 ENV ASPNETCORE_URLS="http://*:4500"
+ENV ASPNETCORE_ENVIRONMENT="Production"
+ENV ASPNETCORE_URLS="http://*:4500"
+ENV SqlCon="Sqldeki Veri tapani yolu"
 ENTRYPOINT ["dotnet", "AspNetCoreMVC.dll"]
